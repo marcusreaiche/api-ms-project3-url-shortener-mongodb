@@ -27,7 +27,6 @@ app.get("/api/shorturl/:id", (req, res) => {
   // lookup id in table and get address
   const id = Number(req.params.id);
   const address = lookUpId(id);
-  console.log(address);
   // redirect to address
   if (address) {
     res.redirect(address);
@@ -42,7 +41,7 @@ app.get("/api/shorturl/:id", (req, res) => {
 app.post("/api/shorturl/new", async (req, res) => {
   const { url } = req.body;
   const data = await asyncInsertUrl(url).catch(err => err);
-  res.json({data});
+  res.json(data);
 });
 
 app.listen(port, () => {
