@@ -15,8 +15,7 @@ const options = {
 const lookUpId = id => {
   const idx = Number(id);
   const data = fs.readFileSync(filepath, options);
-  const rows = data.split("\n");
-  console.log(rows.length);
+  const rows = data.split(/\n?\r/);
   if (rows.length <= idx) {
     return "";
   }
@@ -27,9 +26,10 @@ const lookUpId = id => {
 
 const lookUpAddress = address => {
   const data = fs.readFileSync(filepath, options);
-  const rows = data.split("\n");
+  const rows = data.split(/\r?\n/);
   return (
     rows
+      .slice(0, rows.length - 1)
       .map(row => {
         const [short_url, original_url] = row.split(",");
         return {
@@ -57,6 +57,7 @@ const asyncInsertUrl = async url => {
   }  
   // Check if address exists in the table
   const addressSearch = lookUpAddress(url);
+  console.log(addressSearch);
   if (addressSearch.length > 0) {
     console.log("There is nothing to be inserted");
     return addressSearch[0];
@@ -95,7 +96,13 @@ const insertUrl = url => {
       return null;
     }); 
 };
-  
+
+// Tests
+console.log("Running tests inside connect_file.js");
+console.log(filepath);
+console.log(lookUpId(2));
+console.log(lookUpAddress("https://glitch.com"));
+
 
 module.exports = {
   lookUpId,
