@@ -1,21 +1,24 @@
 // Import node modules
 const express = require('express');
-// const mongo = require('mongodb');
-// const mongoose = require('mongoose');
+const mongo = require('mongodb');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require("body-parser");
 // Import custom modules
 const { lookUpId, asyncInsertUrl } = require("./connect_file.js");
 const app = express();
-
 // Basic Configuration 
 const port = process.env.PORT || 3000;
-
-/** this project needs a db !! **/ 
-// mongoose.connect(process.env.MONGOLAB_URI);
+// Mongoose fix deprecation warnings
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+// Mongoose connection
+mongoose.connect(process.env.MONGOLAB_URI);
+// Middlewares
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
-
 // Serving the public folder
 app.use('/public', express.static(__dirname + '/public'));
 // root route
