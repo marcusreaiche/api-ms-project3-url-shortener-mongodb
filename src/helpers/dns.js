@@ -1,6 +1,5 @@
 // Performs dns lookups for validating urls 
 const dns = require("dns");
-const url = process.argv[2] || "google.com"
 
 const options = {
   all: true
