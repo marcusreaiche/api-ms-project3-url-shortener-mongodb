@@ -12,7 +12,7 @@
     "child_process": "1.0.2",
     "cors": "^2.8.5",
     "dotenv": "8.1.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongodb": "^3.3.2",
     "mongoose": "^5.7.3",
     "node-fetch": "^2.6.0",
